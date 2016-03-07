@@ -1,0 +1,13 @@
+#ICON https://www.npmjs.com/package/cordova-gen-icon
+#iResize dinamicallty the SVG https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
+Check the format of the string when inserting the time
+Border on circles
+Align reset button
+Add Activity for settings
+http://simonmacdonald.blogspot.it/2012/06/phongap-android-application-preferences.html
+I18N
+http://www.oodlestechnologies.com/blogs/Implementing-i18n-%28internationalization%29-in-PhoneGap-or-Cordova-Application
+Analytics
+https://github.com/ggendre/GALocalStorage
+MVC
+2 different buttons for HAJIME and TSUZUKETE
