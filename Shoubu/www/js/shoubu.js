@@ -6,8 +6,13 @@ var timerText = svgDoc.getElementById("timerText");
 
 
 // the rect containg hajime
-var hajimeRect = svgDoc.getElementById("hajimeRect");
-var hajimeText = svgDoc.getElementById("hajimeText");
+var hajimeButton = svgDoc.getElementById("hajimeButton");
+var yameButton = svgDoc.getElementById("yameButton");
+var tsuzuketeButton = svgDoc.getElementById("tsuzuketeButton");
+
+var rightPointsText = svgDoc.getElementById("rightPointsText");
+var leftPointsText = svgDoc.getElementById("leftPointsText");
+
 
 
 // The svg2 root element
@@ -26,9 +31,6 @@ var started = false;
 // Constants
 var SVG_WIDTH = 1920;
 var SVG_HEIGHT = 1080;
-
-var hajimeColor = '#55d400';
-var pauseColor = '#669999';
 
 // to resize the SVG
 $(document).ready(function () {   
@@ -49,6 +51,15 @@ $(document).ready(function () {
    
     svgRoot.setAttribute("viewBox", "0 0 "+ w + " " + h);
 });
+
+// Model
+
+var shoubuModel = {rightPoints : 0, leftPoints : 0, rightPenalties : 0, leftPenalties : 0 };
+
+
+finishUI();
+applyModelUI();
+
 
 // Functions
 
@@ -84,6 +95,34 @@ function startTimer() {
         timer = setInterval(decrementTime, 100);
         startUI();
     }
+}
+
+function leftIppon(){
+    shoubuModel["leftPoints"] += 3;
+    applyModelUI();
+}
+
+function rightIppon(){
+    shoubuModel["rightPoints"] += 3;
+    applyModelUI();
+}
+function leftWazaAri(){
+    shoubuModel["leftPoints"] += 2;
+    applyModelUI();
+}
+
+function rightWazaAri(){
+    shoubuModel["rightPoints"] += 2;
+    applyModelUI();
+}
+function leftYuko(){
+    shoubuModel["leftPoints"] ++;
+    applyModelUI();
+}
+
+function rightYuko(){
+    shoubuModel["rightPoints"] ++;
+    applyModelUI();
 }
 
 /**
@@ -145,18 +184,26 @@ function timeDiffToString(timeDiff) {
 
 // UI Functions
 function startUI(){
-    hajimeRect.style.fill=hajimeColor;
-    hajimeText.innerHTML = "YAME";
+    hajimeButton.style.visibility='hidden';
+    yameButton.style.visibility='visible';
+    tsuzuketeButton.style.visibility='hidden';
 }
 
 function pauseUI(){
-    hajimeRect.style.fill=pauseColor;
-    hajimeText.innerHTML = "TSUZUKETE";
+    hajimeButton.style.visibility='hidden';
+    yameButton.style.visibility='hidden';
+    tsuzuketeButton.style.visibility='visible';
 }
 
 function finishUI(){
-    hajimeRect.style.fill=hajimeColor;
-    hajimeText.innerHTML = "HAJIMETE";
+    hajimeButton.style.visibility='visible';
+    yameButton.style.visibility='hidden';
+    tsuzuketeButton.style.visibility='hidden';
+}
+
+function applyModelUI(){
+    rightPointsText.innerHTML = shoubuModel["rightPoints"];
+    leftPointsText.innerHTML = shoubuModel["leftPoints"];
 }
 
 
