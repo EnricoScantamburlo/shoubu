@@ -26,7 +26,7 @@
         inkscape:pageopacity="1"
         inkscape:pageshadow="2"
         inkscape:zoom="0.49497475"
-        inkscape:cx="110.77967"
+        inkscape:cx="335.2719"
         inkscape:cy="765.56473"
         inkscape:document-units="px"
         inkscape:current-layer="layer1"
@@ -93,7 +93,7 @@
             id="flowPara3364" /></flowRoot>
         <g
             id="g4262"
-            onclick="top.startTimer()">
+            onclick="top.reset()">
             <rect
                 ry="40.039436"
                 y="0.79660457"
@@ -144,7 +144,8 @@
         </g>
         <g
             id="g4288"
-            transform="translate(680.94059,339.41129)">
+            transform="translate(680.94059,339.41129)"
+            onclick="top.leftWazaAri()">
             <ellipse
                 ry="139.79622"
                 rx="139.7962"
@@ -174,7 +175,8 @@
         </g>
         <g
             id="g4294"
-            transform="translate(632.45326,246.47725)">
+            transform="translate(632.45326,246.47725)"
+            onclick="top.leftYuko()">
             <ellipse
                 ry="139.79622"
                 rx="139.7962"
@@ -225,7 +227,8 @@
         </g>
         <g
             id="g4288-5"
-            transform="translate(2245.4756,328.2991)">
+            transform="translate(2245.4756,328.2991)"
+            onclick="top.rightWazaAri()">
             <ellipse
                 ry="139.79622"
                 rx="139.7962"
@@ -255,7 +258,8 @@
         </g>
         <g
             id="g4294-0"
-            transform="translate(2196.9883,235.36506)">
+            transform="translate(2196.9883,235.36506)"
+            onclick="top.rightYuko()">
             <ellipse
                 ry="139.79622"
                 rx="139.7962"
@@ -697,22 +701,22 @@
             x="733.40387"
             y="24.060377" />
         <rect
-            style="fill:#ffffff;fill-opacity:1;stroke:#8a96a7;stroke-width:1.74109173;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+            style="fill:#ffffff;fill-opacity:1;stroke:#8a96a7;stroke-width:2.14816427;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
             id="rect4334"
-            width="487.35239"
-            height="184.30667"
-            x="727.08038"
-            y="27.838465" />
+            width="743.52405"
+            height="183.89958"
+            x="618.18744"
+            y="28.042" />
         <text
             xml:space="preserve"
             style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-            x="741.01044"
+            x="635.95459"
             y="183.58067"
             id="text4721"
             sodipodi:linespacing="125%"><tspan
             sodipodi:role="line"
             id="timerText"
-            x="741.01044"
+            x="635.95459"
             y="183.58067"
             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:180.00001526px;font-family:Sans;-inkscape-font-specification:'Sans Bold'">01:30</tspan></text>
         <text
@@ -791,5 +795,39 @@
                 sodipodi:role="line"
                 id="hajimeText-7">YAME</tspan></text>
         </g>
+        <rect
+            style="opacity:0.93999999;fill:#162d50;fill-opacity:1;stroke:none;stroke-width:1.81900001;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+            id="leftMinus"
+            width="131.31982"
+            height="34.345188"
+            x="798.02051"
+            y="541.22546"
+            inkscape:label="#rect4281"
+            onclick="top.leftMinus()" />
+        <rect
+            style="opacity:0.93999999;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:1.81900001;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+            id="rect4281-3"
+            width="131.31982"
+            height="34.345188"
+            x="1019.2439"
+            y="540.21527"
+            onclick="top.rightMinus()" />
+        <text
+            xml:space="preserve"
+            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:180px;line-height:89.99999762%;font-family:Sans;-inkscape-font-specification:'Sans, Bold';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#162d50;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+            x="969.08838"
+            y="762.35413"
+            id="text4721-2-71"
+            sodipodi:linespacing="89.999998%"><tspan
+            sodipodi:role="line"
+            x="969.08838"
+            y="762.35413"
+            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:180px;line-height:89.99999762%;font-family:Sans;-inkscape-font-specification:'Sans, Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#162d50;fill-opacity:1"
+            id="tspan4279">AO</tspan><tspan
+            sodipodi:role="line"
+            x="969.08838"
+            y="924.35413"
+            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:180px;line-height:89.99999762%;font-family:Sans;-inkscape-font-specification:'Sans, Bold';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#162d50;fill-opacity:1"
+            id="tspan4283">WINS</tspan></text>
     </g>
 </svg>

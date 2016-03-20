@@ -31,30 +31,56 @@ var started = false;
 // Constants
 var SVG_WIDTH = 1920;
 var SVG_HEIGHT = 1080;
+var LEFT = "left";
+var RIGHT = "right";
+var REFRESH_TIME = 1;
 
 // to resize the SVG
-$(document).ready(function () {   
-    var docWidth = $( document ).width() * window.devicePixelRatio;
-    var docHeight =  $( document ).height() * window.devicePixelRatio;
-    
+$(document).ready(function () {
+    var docWidth = $(document).width() * window.devicePixelRatio;
+    var docHeight = $(document).height() * window.devicePixelRatio;
+
     var wr = docWidth / SVG_WIDTH;
-    var w = SVG_WIDTH/wr;
-    
+    var w = SVG_WIDTH / wr;
+
     var hr = docHeight / SVG_HEIGHT;
-    var h =  SVG_HEIGHT/hr;
-    
+    var h = SVG_HEIGHT / hr;
+
     console.info("WR: " + wr);
     console.info("HR: " + hr);
     console.info("New width is: " + w);
     console.info("New height is: " + h);
-   
-   
-    svgRoot.setAttribute("viewBox", "0 0 "+ w + " " + h);
+
+
+    svgRoot.setAttribute("viewBox", "0 0 " + w + " " + h);
 });
 
 // Model
 
-var shoubuModel = {rightPoints : 0, leftPoints : 0, rightPenalties : 0, leftPenalties : 0 };
+//<editor-fold defaultstate="collapsed" desc="MODEL DEFINITION">
+var shoubuModel = {rightPoints: 0, leftPoints: 0, rightPenalties: 0, leftPenalties: 0};
+shoubuModel.changeScore = function (screen, points) {
+    // I implement here the logic for the scoring
+    if (RIGHT === screen) {
+        this["rightPoints"] += points;
+        if (this["rightPoints"] < 0) {
+            this["rightPoints"] = 0;
+        }
+    } else if (LEFT === screen) {
+        this["leftPoints"] += points;
+        if (this["leftPoints"] < 0) {
+            this["leftPoints"] = 0;
+        }
+    }
+    applyModelUI();
+};
+
+shoubuModel.reset = function(){
+    this["rightPoints"] = this["leftPoints"] = 0;
+    this["rightPenalties"] = this["leftPenalties"] = 0;
+    applyModelUI();
+};
+//</editor-fold>
 
 
 finishUI();
@@ -83,7 +109,7 @@ function startTimer() {
         lastTimeChecked = d.getTime();
         totalTimePassed = 0;
 
-        timer = setInterval(decrementTime, 100);
+        timer = setInterval(decrementTime, REFRESH_TIME);
         startUI();
     } else if (started && timer !== null) { // I pause 
         clearTimeout(timer);
@@ -92,37 +118,40 @@ function startTimer() {
     } else if (started && timer === null) { // I resume
         var d = new Date();
         lastTimeChecked = d.getTime();
-        timer = setInterval(decrementTime, 100);
+        timer = setInterval(decrementTime, REFRESH_TIME);
         startUI();
     }
 }
 
-function leftIppon(){
-    shoubuModel["leftPoints"] += 3;
-    applyModelUI();
+function leftIppon() {
+    shoubuModel.changeScore(LEFT, 3);
 }
 
-function rightIppon(){
-    shoubuModel["rightPoints"] += 3;
-    applyModelUI();
+function rightIppon() {
+    shoubuModel.changeScore(RIGHT, 3);
 }
-function leftWazaAri(){
-    shoubuModel["leftPoints"] += 2;
-    applyModelUI();
+function leftWazaAri() {
+    shoubuModel.changeScore(LEFT, 2);
 }
 
-function rightWazaAri(){
-    shoubuModel["rightPoints"] += 2;
-    applyModelUI();
+function rightWazaAri() {
+    shoubuModel.changeScore(RIGHT, 2);
 }
-function leftYuko(){
-    shoubuModel["leftPoints"] ++;
-    applyModelUI();
+function leftYuko() {
+    shoubuModel.changeScore(LEFT, 1);
 }
 
-function rightYuko(){
-    shoubuModel["rightPoints"] ++;
-    applyModelUI();
+function rightYuko() {
+    shoubuModel.changeScore(RIGHT, 1);
+}
+
+function leftMinus() {
+    shoubuModel.changeScore(LEFT, -1);
+}
+
+
+function rightMinus() {
+    shoubuModel.changeScore(RIGHT, -1);
 }
 
 /**
@@ -142,7 +171,7 @@ function decrementTime() {
     var totalTimeRemaining = totalTimeInMillisecons - totalTimePassed;
 
     if (totalTimeRemaining <= 0) {
-        resetTime();
+        resetTimer();
         finishUI();
     } else {
 
@@ -156,7 +185,7 @@ function decrementTime() {
  * resets the timer
  * @returns {undefined}
  */
-function resetTime() {
+function resetTimer() {
     if (timer !== null) {
         clearTimeout(timer);
         timer = null;
@@ -164,7 +193,16 @@ function resetTime() {
     started = false;
     var timeString = timeDiffToString(totalTimeInMillisecons);
     timerText.innerHTML = timeString;
-    
+    shoubuModel.reset();
+}
+
+/**
+ * resets the time and the model
+ * @returns nothing
+ */
+function reset() {
+    resetTimer();
+    shoubuModel.reset();
 }
 
 /**
@@ -173,35 +211,42 @@ function resetTime() {
  * @returns {String} the string reprsentation of the input
  */
 function timeDiffToString(timeDiff) {
-    var allSeconds = Math.round(timeDiff / 1000);
-    var minutes = Math.floor(allSeconds / 60);
-    var seconds = allSeconds - minutes * 60;
 
-    return  (minutes < 10 ? "0" : "") + minutes +
-            (seconds < 10 ? ":0" : ":") + seconds;
+    var diff = timeDiff;   
+    var minutes = Math.floor(diff / 60000);
 
+    diff -= minutes * 60000;
+    var seconds = Math.floor(diff/1000);
+
+    diff -= seconds * 1000;
+    var decs =  Math.floor(diff/10);
+
+    return  (minutes < 10 ? "0" : "") + minutes
+            + (seconds < 10 ? ":0" : ":") + seconds
+            + (decs < 10 ? ":0" : ":") + decs 
+            ;
 }
 
 // UI Functions
-function startUI(){
-    hajimeButton.style.visibility='hidden';
-    yameButton.style.visibility='visible';
-    tsuzuketeButton.style.visibility='hidden';
+function startUI() {
+    hajimeButton.style.visibility = 'hidden';
+    yameButton.style.visibility = 'visible';
+    tsuzuketeButton.style.visibility = 'hidden';
 }
 
-function pauseUI(){
-    hajimeButton.style.visibility='hidden';
-    yameButton.style.visibility='hidden';
-    tsuzuketeButton.style.visibility='visible';
+function pauseUI() {
+    hajimeButton.style.visibility = 'hidden';
+    yameButton.style.visibility = 'hidden';
+    tsuzuketeButton.style.visibility = 'visible';
 }
 
-function finishUI(){
-    hajimeButton.style.visibility='visible';
-    yameButton.style.visibility='hidden';
-    tsuzuketeButton.style.visibility='hidden';
+function finishUI() {
+    hajimeButton.style.visibility = 'visible';
+    yameButton.style.visibility = 'hidden';
+    tsuzuketeButton.style.visibility = 'hidden';
 }
 
-function applyModelUI(){
+function applyModelUI() {
     rightPointsText.innerHTML = shoubuModel["rightPoints"];
     leftPointsText.innerHTML = shoubuModel["leftPoints"];
 }
